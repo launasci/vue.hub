@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="9" offset="1">
               <v-card class='mb-4 card' elevation="0" v-for="repo in repos" :key="repo.id">
-                  <v-card-title class='justify-space-between' @click="$emit('selected-repo', repo.url)">{{ repo.name }}   
+                  <v-card-title class='justify-space-between' @click="$emit('selected-repo',{user, repo: repo.name})">{{ repo.name }}   
                     <v-chip outlined>
                       {{ repo.visibility }} 
                     </v-chip>

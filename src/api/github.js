@@ -14,8 +14,7 @@ export const api = {
     return axios.get(`/users/${user}/repos?page=${page}`).then(response => response.data)
   },
 
-  listContent (baseUrl,path) {
-    path = path || ''
-    return axios.get(`${baseUrl}/contents/${path}`).then(response => response.data)
+   listContent(user, repo, file = '') {
+    return axios.get(`repos/${user}/${repo}/contents/${file}`).then(response => response.data)
   },
 }

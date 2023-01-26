@@ -18,10 +18,8 @@
     </v-app-bar>
     <v-main>
       <search-box @user-selected="userSelected"/>
-      <list-repos :user="user" @selected-repo="selectedRepoUrl" />
-      <list-content :url="repoUrl"/>
-      
-      
+      <list-repos v-show="!viewDirectory" :user="user" @selected-repo="selectedRepo" />
+      <list-tree :repoInfos="selectedRepoInfos" />
     </v-main>
   </v-app>
 </template>
@@ -29,28 +27,30 @@
 <script>
 import SearchBox from '@/components/search-box';
 import ListRepos from '@/components/list-repos';
-import ListContent from '@/components/list-content';
+import ListTree from '@/components/list-tree';
 
 export default {
   name: 'App',
   components: {
     SearchBox,
     ListRepos,
-    ListContent,
+    ListTree,
   },
 
   data (){
     return{
       user: null,
       repoUrl: null,
+      viewDirectory: false,
+      selectedRepoInfos: null
     }
   },
   methods: {
     userSelected(user){
       this.user = user
     },
-    selectedRepoUrl(url){
-      this.repoUrl = url
+    selectedRepo(userRepoName){
+      this.selectedRepoInfos = userRepoName
     }
   },
   watch:{
