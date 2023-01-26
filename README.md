@@ -14,7 +14,7 @@
 
 ----
 
-> <h3> O que ainda vai ser feito: <h3>
+> <h3> O que ainda vai ser feito: </h3>
 > <ul>
 >    <li>Apromimorar a navegação em arvore. Para uma primeira é surpreendente, mas tem como refinar!</li>
 >    <li>Adicionar a possibilidade de visualização do conteúdo de um arquivo. Isso facilita muito e torna mais funcional o    projeto</li>
