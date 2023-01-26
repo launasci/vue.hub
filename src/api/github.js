@@ -6,11 +6,16 @@ export const api = {
   searchUsers(user) {
     return axios.get(`/search/users?q=${user}`).then(response => response.data)
   },
-  async listRepos(user, page) {
+
+  listRepos(user, page) {
     if (!page) {
       page = 1
     }
-    const response = await axios.get(`/users/${user}/repos?page=${page}`)
-    return response.data
-  }
+    return axios.get(`/users/${user}/repos?page=${page}`).then(response => response.data)
+  },
+
+  listContent (baseUrl,path) {
+    path = path || ''
+    return axios.get(`${baseUrl}/contents/${path}`).then(response => response.data)
+  },
 }

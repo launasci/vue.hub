@@ -1,41 +1,50 @@
 <template>
   <div>
-    <v-autocomplete label="Pesquise" :items="items" @input.native="event => getItems(event.target.value)" :loading="itemsLoading"/>
+    <v-row>
+      <v-col cols="9" offset="1" class="d-flex">
+        <v-avatar class="ma-2" v-if='user'>
+          <img
+            :src="avatar"
+          >
+        </v-avatar>
+        <v-autocomplete label="Procure por um usuario" v-model='user' hide-no-data :items="items" 
+        @input.native="event => debounceInput(event.target.value)" color='black'
+        :loading="itemsLoading"/>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
-import { api } from '@/api/githubMock';
+import { api } from '@/api/github';
+import debounce from 'lodash/debounce'
 
 export default {
-  props: {
-    typeSearch: {
-      type: String,
-      default: "user",
-      validator(value) {
-        return ["user", "repo"].includes(value)
-      }
-    }
-  },
   data() {
     return {
       items: null,
-      itemsLoading: false
+      itemsLoading: false,
+      user: '',
+      avatar: null
     }
   },
-  methods: {
-    async getItems(searchTerm) {
-      this.itemsLoading = true
-      const search = {
-        "user": api.searchUsers,
+  
+  watch:{
+    user(){
+        this.$emit('user-selected', this.user)
       }
-      const { items } = await search[this.typeSearch](searchTerm)
-      console.log(items)
+  },
+
+  methods: {
+    debounceInput: debounce(async function (searchTerm) {
+      this.itemsLoading = true
+      const { items } = await api.searchUsers(searchTerm)
       if (items) {
         this.items = items.map(item => item.login)
+        this.avatar = items.map(item => item.avatar_url)
       }
       this.itemsLoading = false
-    }
+    }, 500)
   }
 }
 </script>
