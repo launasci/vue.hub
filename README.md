@@ -3,7 +3,6 @@
 
 <h2> A ideia desse projeto,desenvolvido no programa buserTech, foi construir um navegador de repositórios do GitHub com o objetivo de melhorar o conhecimento em Vue.js e Vuetify. </h2>
 
-----
 
 
 > <h3> O que foi construindo até o momento: </h3>
@@ -20,7 +19,6 @@
 >    <li>Adicionar a possibilidade de visualização do conteúdo de um arquivo. Isso facilita muito e torna mais funcional o    projeto</li>
 >  </ul>
 
-- - - - 
 <h1>
    <a href="https://vuehub.netlify.app/" target="_blank">
       Acesse o VueHub
