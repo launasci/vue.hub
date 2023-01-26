@@ -18,7 +18,7 @@
     </v-app-bar>
     <v-main>
       <search-box @user-selected="userSelected"/>
-      <list-repos v-show="!viewDirectory" :user="user" @selected-repo="selectedRepo" />
+      <list-repos :user="user" @selected-repo="selectedRepo" />
       <list-tree :repoInfos="selectedRepoInfos" />
     </v-main>
   </v-app>
@@ -41,7 +41,6 @@ export default {
     return{
       user: null,
       repoUrl: null,
-      viewDirectory: false,
       selectedRepoInfos: null
     }
   },

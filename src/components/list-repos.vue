@@ -2,8 +2,8 @@
   <div>
     <v-row>
       <v-col cols="9" offset="1">
-              <v-card class='mb-4 card' elevation="0" v-for="repo in repos" :key="repo.id">
-                  <v-card-title class='justify-space-between' @click="$emit('selected-repo',{user, repo: repo.name})">{{ repo.name }}   
+              <v-card class='mb-4 card' elevation="0" v-for="repo in repos" :key="repo.id" v-show="isVisible(repo.id)" @click="selectRepo(repo)">
+                  <v-card-title class='justify-space-between'>{{ repo.name }}   
                     <v-chip outlined>
                       {{ repo.visibility }} 
                     </v-chip>
@@ -29,6 +29,7 @@ props:{
 data() {
   return {
     repos: [],
+    selectedRepoId: null
   }
 },
 
@@ -42,6 +43,19 @@ methods:{
     const repos = await api.listRepos(user)
     this.repos = repos
   },
+  selectRepo(repo) {
+  if (this.selectedRepoId === repo.id) {
+    this.selectedRepoId = null
+    this.$emit('deselected-repo')
+    return
+  }
+    this.selectedRepoId = repo.id
+    this.$emit('selected-repo', { user: this.user, repo: repo.name })
+  },
+  isVisible(repoId) {
+    if (!this.selectedRepoId) return true
+    return this.selectedRepoId === repoId
+  }
 }
 }
 </script>
